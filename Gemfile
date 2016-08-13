@@ -27,6 +27,9 @@ gem 'devise'
 
 gem 'toastr-rails'
 
+gem 'omniauth'
+gem 'omniauth-facebook'
+
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
