@@ -45,6 +45,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     addres: 'smtp.mandrillapp.com',
     port: 587,
+    domain:               'yahoo.co.jp',
     enable_starttls_auto: true,
     user_name: 'speech801@yahoo.co.jp',
     password: 'de987a7c452d9567da073addae8f97bb-us14',
