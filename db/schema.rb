@@ -11,7 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812131610) do
+ActiveRecord::Schema.define(version: 20160815030952) do
+
+  create_table "rooms", force: :cascade do |t|
+    t.string   "home_type",    limit: 255
+    t.string   "room_type",    limit: 255
+    t.integer  "accommodate",  limit: 4
+    t.integer  "bed_room",     limit: 4
+    t.integer  "bath_room",    limit: 4
+    t.string   "listing_name", limit: 255
+    t.text     "summary",      limit: 65535
+    t.string   "address",      limit: 255
+    t.boolean  "is_tv"
+    t.boolean  "is_kitchen"
+    t.boolean  "is_air"
+    t.boolean  "is_heating"
+    t.boolean  "is_internet"
+    t.integer  "price",        limit: 4
+    t.boolean  "active"
+    t.integer  "user_id",      limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "rooms", ["user_id"], name: "index_rooms_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255,   default: "", null: false
@@ -41,4 +64,5 @@ ActiveRecord::Schema.define(version: 20160812131610) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "rooms", "users"
 end
