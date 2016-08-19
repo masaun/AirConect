@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818032437) do
+ActiveRecord::Schema.define(version: 20160819034612) do
 
   create_table "photos", force: :cascade do |t|
     t.integer  "room_id",            limit: 4
@@ -24,6 +24,18 @@ ActiveRecord::Schema.define(version: 20160818032437) do
   end
 
   add_index "photos", ["room_id"], name: "index_photos_on_room_id", using: :btree
+
+  create_table "reservations", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "price",      limit: 4
+    t.integer  "total",      limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "reservations", ["user_id"], name: "index_reservations_on_user_id", using: :btree
 
   create_table "rooms", force: :cascade do |t|
     t.string   "home_type",    limit: 255
@@ -79,5 +91,6 @@ ActiveRecord::Schema.define(version: 20160818032437) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "photos", "rooms"
+  add_foreign_key "reservations", "users"
   add_foreign_key "rooms", "users"
 end
