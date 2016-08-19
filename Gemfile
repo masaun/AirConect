@@ -32,6 +32,8 @@ gem 'omniauth-facebook'
 
 gem 'paperclip'
 
+gem 'geocoder'
+
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
