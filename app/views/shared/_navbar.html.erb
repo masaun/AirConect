@@ -36,6 +36,7 @@
           </li>
         <% end %>
 
+        
         <li>
           <%= link_to conversations_path do %>
             <i class="fa fa-envelope-o"></i> Messages
@@ -43,7 +44,7 @@
         </li>
 
         <li>
-          <% link_to new_room_path do %>
+          <%= link_to new_room_path do %>
             <i class="fa fa-home fa-lg"></i> Become a Host
           <% end %>
         </li>

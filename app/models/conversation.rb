@@ -6,11 +6,11 @@ class Conversation < ActiveRecord::Base
 
   validates_uniqueness_of :sender_id, scorp: :recipient_id
 
-  scorp :involving, -> (user) do
+  scope :involving, -> (user) do
     where("conversations.sender_id = ? OR conversations.recipient_id = ?", user.id, user.id)
   end
 
-  scorp :between, -> (sender_id, recipient_id) do
+  scope :between, -> (sender_id, recipient_id) do
     where("conversations.sender_id = ? AND conversations.recipient_id = ?) OR (conversations.sender_id =? AND conversations.recipient_id = ?)", sender_id, recipient_id, recipient_id, sender_id)
   end
 
