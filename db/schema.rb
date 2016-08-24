@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160821135614) do
+ActiveRecord::Schema.define(version: 20160823130721) do
 
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id",    limit: 4
@@ -54,6 +54,18 @@ ActiveRecord::Schema.define(version: 20160821135614) do
   end
 
   add_index "reservations", ["user_id"], name: "index_reservations_on_user_id", using: :btree
+
+  create_table "reviews", force: :cascade do |t|
+    t.text     "comment",    limit: 65535
+    t.integer  "star",       limit: 4
+    t.integer  "room_id",    limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "reviews", ["room_id"], name: "index_reviews_on_room_id", using: :btree
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "rooms", force: :cascade do |t|
     t.string   "home_type",    limit: 255
@@ -112,5 +124,7 @@ ActiveRecord::Schema.define(version: 20160821135614) do
   add_foreign_key "messages", "users"
   add_foreign_key "photos", "rooms"
   add_foreign_key "reservations", "users"
+  add_foreign_key "reviews", "rooms"
+  add_foreign_key "reviews", "users"
   add_foreign_key "rooms", "users"
 end
