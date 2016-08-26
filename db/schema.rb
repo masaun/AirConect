@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823130721) do
+ActiveRecord::Schema.define(version: 20160825021707) do
 
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id",    limit: 4
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20160823130721) do
     t.integer  "total",      limit: 4
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.boolean  "status"
   end
 
   add_index "reservations", ["user_id"], name: "index_reservations_on_user_id", using: :btree
