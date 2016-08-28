@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def home
-    @rooms = Room.all
+    @rooms = Room.limit(3)
   end
 
   def search
@@ -19,7 +19,7 @@ class PagesController < ApplicationController
       @rooms_address = Room.where(active: true).all
     end
 
-    @search = @rooms_adress.ransack(params[:q])
+    @search = @rooms_address.ransack(params[:q])
     @rooms = @search.result
 
     @arrRooms = @rooms.to_a
