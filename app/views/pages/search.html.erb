@@ -47,10 +47,13 @@
               <%= text_field_tag :start_date, params[:start_date], placeholder: "Start Date", class: "form-control" %>
             </div>
             <div class="col-md-3">
-              <%= text_field :price_qteq, placeholder: "Min Price", class: "form-control" %>
+              <%= text_field_tag :end_date, params[:end_date], placeholder: "End Date", class: "form-control" %>
             </div>
             <div class="col-md-3">
-              <%= text_field :price_qteq, placeholder: "Min Price", class: "form-control" %>
+              <%= f.text_field :price_gteq, placeholder: "Min Price", class: "form-control" %>
+            </div>
+            <div class="col-md-3">
+              <%= f.text_field :price_lteq, placeholder: "Max Price", class: "form-control" %>
             </div>
           </div>
 
@@ -164,7 +167,7 @@
       }
     });
 
-    $("#start_date").datepicker({
+    $("#end_date").datepicker({
       dateFormat: 'dd-mm-yy',
       minDate: 0,
       maxDate: '3m',
@@ -188,8 +191,11 @@
 
         var windowTop = $(window).scrollTop(); // returns nember
 
-        if (stickyTop < windowTop) {
-          $('.sticky').css({position: 'fixed', 'static'});
+        if (stickyTop < windowTop){
+          $('.sticky').css({ position: 'fixed', top: 0 });
+        }
+        else {
+          $('.sticky').css('position','static');
         }
 
       });
