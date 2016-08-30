@@ -1,12 +1,12 @@
-Class ReservationsController < ApplicationController
+class ReservationsController < ApplicationController
   before_action :authenticate_user!, except: [:notify]
 
   def preload
     room = Room.find(params[:room_id])
-    today = Data.today
-    reservations = room.reservations.where("start_date >= ? OR end_date >=?", today, today)
+    today = Date.today
+    reservations = room.reservations.where("start_date >= ? OR end_date >= ?", today, today)
 
-    render json: reservations
+    render json: reservations 
   end
 
   def preview
@@ -24,23 +24,23 @@ Class ReservationsController < ApplicationController
     @reservation = current_user.reservations.create(reservation_params)
 
     if @reservation
-      # send request to Paypal
-      value = {
-        business: 'masanoriuno@gmail.com',
+      # send request to PayPal
+      values = {
+        business: 'demo.code4startup-facilitator@gmail.com',
         cmd: '_xclick',
         upload: 1,
-        notity_url: 'http://4514e830.ngrok.io/notify',
-        amount: @reservation.room.listing_name,
+        notify_url: 'http://22ee1588.ngrok.io/notify',
+        amount: @reservation.total,
+        item_name: @reservation.room.listing_name,
         item_number: @reservation.id,
         quantity: '1',
-        return: 'http://4514e830.ngrok.io/your_trips'
+        return: 'http://22ee1588.ngrok.io/your_trips'
       }
 
       redirect_to "https://www.sandbox.paypal.com/cgi-bin/webscr?" + values.to_query
     else
       redirect_to @reservation.room, alert: "Oops, something went wrong..."
-    end
-
+    end 
   end
 
   protect_from_forgery except: [:notify]
@@ -59,6 +59,7 @@ Class ReservationsController < ApplicationController
     render nothing: true
   end
 
+  protect_from_forgery except: [:your_trips]
   def your_trips
     @trips = current_user.reservations.where("status = ?", true)
   end
@@ -67,11 +68,10 @@ Class ReservationsController < ApplicationController
     @rooms = current_user.rooms
   end
 
-
   private
     def is_conflict(start_date, end_date)
       room = Room.find(params[:room_id])
-      
+
       check = room.reservations.where("? < start_date AND end_date < ?", start_date, end_date)
       check.size > 0? true : false
     end
